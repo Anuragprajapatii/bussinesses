@@ -22,6 +22,7 @@
       margin-top: 10px;
       padding: 10px;
       font-size: 16px;
+      
     }
 
     textarea {
@@ -33,6 +34,16 @@
       display: flex;
       gap: 10px;
       margin-top: 10px;
+    }
+    .whatsappbtn{
+      background-color: rgb(47, 204, 47);
+      border: none;
+      border-radius: 20px;
+    }
+    .messagebtn{
+      background-color: rgba(255, 94, 94, 0.722);
+      border: none;
+      border-radius: 20px;
     }
 
     @media (max-width: 480px) {
@@ -53,13 +64,15 @@
 <input type="number" id="guests" value="130" placeholder="e.g., 130" />
 
 <div class="button-group">
-  <button onclick="generateMessage()">Generate Message</button>
-  <button onclick="copyToClipboard()">Copy to Clipboard</button>
+  <button onclick="generateMessage()" class="messagebtn">Generate Message</button>
+  <button onclick="shareViaWhatsApp()" class="whatsappbtn">Share via WhatsApp</button>
 </div>
 
 <textarea id="output" readonly></textarea>
 
 <script>
+let generatedMessage = '';
+
 function generateMessage() {
   const guests = parseInt(document.getElementById('guests').value);
 
@@ -68,7 +81,6 @@ function generateMessage() {
     return;
   }
 
-  // Rates
   const roomRate = 4500;
   const nights = 2;
   const lunchRate = 500;
@@ -79,7 +91,6 @@ function generateMessage() {
   const djDecoration = 340000;
   const djLicense = 10000;
 
-  // Room logic based on guest count
   let rooms = 40;
   let roomDetails = "40 rooms";
 
@@ -88,7 +99,6 @@ function generateMessage() {
     roomDetails = "22 rooms (16 dual/triple sharing + 6 quad sharing)";
   }
 
-  // Calculations
   const accommodation = roomRate * rooms * nights;
   const day1Lunch = lunchRate * guests;
   const day1HiTea = hiTeaRate * guests;
@@ -106,7 +116,7 @@ function generateMessage() {
   const foodTotal = day1Total + day2Total + day3Total;
   const grandTotal = accommodation + foodTotal + djDecoration;
 
-  const message = `🛏️ Accommodation
+  generatedMessage = `🛏️ Accommodation
 ${roomDetails} × ₹${roomRate} × ${nights} nights = ₹${accommodation.toLocaleString()}
 
 📅 Day 1 (Check-In):
@@ -146,15 +156,17 @@ Note: An additional ₹${djLicense.toLocaleString()} DJ license fee is paid to t
 📞 Contact us: +91 9084340720  
 🌐 Website: www.himriverrishikesh.com`;
 
-  document.getElementById('output').value = message;
+  document.getElementById('output').value = generatedMessage;
 }
 
-function copyToClipboard() {
-  const output = document.getElementById('output');
-  output.select();
-  output.setSelectionRange(0, 99999); // For mobile
-  document.execCommand("copy");
-  alert("Message copied to clipboard!");
+function shareViaWhatsApp() {
+  if (!generatedMessage) {
+    alert("Please generate the message first.");
+    return;
+  }
+  const encodedMessage = encodeURIComponent(generatedMessage);
+  const whatsappUrl = `https://wa.me/?text=${encodedMessage}`;
+  window.open(whatsappUrl, '_blank');
 }
 </script>
 
