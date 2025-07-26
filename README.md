@@ -58,10 +58,11 @@
 </head>
 <body>
 
-<h2>WhatsApp Message Generator</h2>
+<h2>HIM RIVER RESORT DESTINATION WEDDING MESSAGE</h2>
 
 <label for="guests">Enter Number of Guests:</label>
-<input type="number" id="guests" value="130" placeholder="e.g., 130" />
+<input type="number" id="guests" placeholder="Number of person" /> <label for="rooms">Enter Number of Rooms (Optional):</label>
+<input type="number" id="rooms" placeholder="Number of rooms" />
 
 <div class="button-group">
   <button onclick="generateMessage()" class="messagebtn">Generate Message</button>
@@ -75,6 +76,7 @@ let generatedMessage = '';
 
 function generateMessage() {
   const guests = parseInt(document.getElementById('guests').value);
+  let rooms = parseInt(document.getElementById('rooms').value); // Get rooms value
 
   if (isNaN(guests) || guests <= 0) {
     alert("Please enter a valid number of guests.");
@@ -91,12 +93,20 @@ function generateMessage() {
   const djDecoration = 340000;
   const djLicense = 10000;
 
-  let rooms = 40;
-  let roomDetails = "40 rooms";
+  let roomDetails = "";
 
-  if (guests <= 80) {
-    rooms = 22;
-    roomDetails = "22 rooms (16 dual/triple sharing + 6 quad sharing)";
+  // If rooms input is not a valid number, use existing logic based on guests
+  if (isNaN(rooms) || rooms <= 0) {
+    if (guests <= 80) {
+      rooms = 22;
+      roomDetails = "22 rooms (16 dual/triple sharing + 6 quad sharing)";
+    } else {
+      rooms = 40;
+      roomDetails = "40 rooms";
+    }
+  } else {
+    // Use the user-provided number of rooms
+    roomDetails = `${rooms} rooms`;
   }
 
   const accommodation = roomRate * rooms * nights;
