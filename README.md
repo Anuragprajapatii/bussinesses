@@ -67,7 +67,7 @@
 <input type="number" id="rooms" placeholder="Number of rooms" />
 
 <label for="roomCharges">Enter Room Charges per Night (Optional):</label>
-<input type="number" id="roomCharges" placeholder="e.g., 4500" />
+<input type="number" id="roomCharges" placeholder="Room charges " />
 
 <div class="button-group">
   <button onclick="generateMessage()" class="messagebtn">Generate Message</button>
