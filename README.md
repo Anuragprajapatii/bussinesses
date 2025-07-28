@@ -61,8 +61,13 @@
 <h2>HIM RIVER RESORT DESTINATION WEDDING MESSAGE</h2>
 
 <label for="guests">Enter Number of Guests:</label>
-<input type="number" id="guests" placeholder="Number of person" /> <label for="rooms">Enter Number of Rooms (Optional):</label>
+<input type="number" id="guests" placeholder="Number of person" /> 
+
+<label for="rooms">Enter Number of Rooms (Optional):</label>
 <input type="number" id="rooms" placeholder="Number of rooms" />
+
+<label for="roomCharges">Enter Room Charges per Night (Optional):</label>
+<input type="number" id="roomCharges" placeholder="e.g., 4500" />
 
 <div class="button-group">
   <button onclick="generateMessage()" class="messagebtn">Generate Message</button>
@@ -76,14 +81,19 @@ let generatedMessage = '';
 
 function generateMessage() {
   const guests = parseInt(document.getElementById('guests').value);
-  let rooms = parseInt(document.getElementById('rooms').value); // Get rooms value
+  let rooms = parseInt(document.getElementById('rooms').value); 
+  let roomRate = parseFloat(document.getElementById('roomCharges').value); // Get room charges
 
   if (isNaN(guests) || guests <= 0) {
     alert("Please enter a valid number of guests.");
     return;
   }
 
-  const roomRate = 4500;
+  // Set default room rate if not provided or invalid
+  if (isNaN(roomRate) || roomRate <= 0) {
+    roomRate = 4500; // Default room rate
+  }
+  
   const nights = 2;
   const lunchRate = 500;
   const hiTeaRate = 300;
@@ -127,7 +137,7 @@ function generateMessage() {
   const grandTotal = accommodation + foodTotal + djDecoration;
 
   generatedMessage = `🛏️ Accommodation
-${roomDetails} × ₹${roomRate} × ${nights} nights = ₹${accommodation.toLocaleString()}
+${roomDetails} × ₹${roomRate.toLocaleString()} × ${nights} nights = ₹${accommodation.toLocaleString()}
 
 📅 Day 1 (Check-In):
 
@@ -163,7 +173,7 @@ DJ & Decoration: ₹${djDecoration.toLocaleString()}
 
 Note: An additional ₹${djLicense.toLocaleString()} DJ license fee is paid to the camp union to maintain forest and wildlife decorum. This is only allowed for special occasions like weddings.
 
-📞 Contact us: +91 9084340720  
+📞 Contact us: +91 9084340720 / +91 9758114823
 🌐 Website: www.himriverrishikesh.com`;
 
   document.getElementById('output').value = generatedMessage;
