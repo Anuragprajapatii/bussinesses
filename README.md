@@ -14,7 +14,7 @@
 </head>
 <body class="bg-gray-100 flex items-center justify-center min-h-screen p-4">
     <div class="bg-white p-8 rounded-xl shadow-lg w-full max-w-2xl">
-        <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">Wedding Quote Generator</h2>
+        <h2 class="text-3xl font-bold text-center mb-6 text-gray-800">Him River Resort Wedding Query Message</h2>
 
         <!-- Room Rate Input -->
         <div class="mb-4">
